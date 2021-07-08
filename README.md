@@ -16,7 +16,9 @@
   - 電話
   - 描述
   - 圖片  
- 
+
+<img src="./public/img/demo.gif" width="1200"></img>
+
 ## 安裝
 1. 開啟終端機(Terminal)cd 到存放專案本機位置並執行:
 ```
