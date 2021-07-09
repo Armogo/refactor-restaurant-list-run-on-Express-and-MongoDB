@@ -22,13 +22,13 @@
 ## 安裝
 1. 開啟終端機(Terminal)cd 到存放專案本機位置並執行:
 ```
-git clone https://github.com/Armogo/Restaunrant-list-run-on-Express.git
+git clone https://github.com/Armogo/restaunrant-list-run-on-Express.git
 ```
 
 2. 初始設定
 
 ```
-cd Restaunrant-list-run-on-Express-main  //切至專案資料夾
+cd restaurant-list-run-on-Express-main  //切至專案資料夾
 
 npm install  //安裝套件
 ```
