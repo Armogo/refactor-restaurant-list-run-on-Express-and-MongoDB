@@ -1,0 +1,76 @@
+<form action="/restaurants" method="POST" class="row mx-2 mt-2">
+  <div class="form-row">
+    {{!-- name --}}
+    <div class="form-group col-md-6">
+      <label for="inputName">餐廳名稱</label>
+      <input type="text" class="form-control" id="inputName" placeholder="餐廳名稱" name="name" required>
+    </div>
+  
+    {{!-- name_en --}}
+    <div class="form-group col-md-6">
+      <label for="inputEnglishName">餐廳英文名稱</label>
+      <input type="text" class="form-control" id="inputEnglishName" placeholder="餐廳英文名稱" name="name_en" required>
+    </div>
+
+    {{!-- category --}}
+    <div class="form-group col-md-6">
+      <label for="inputCategory">餐廳類型</label>
+      <input class="form-control" list="datalistOptions" id="inputCategory" pattern="[^\d\s]+" placeholder="餐廳類型" name="category" required>
+      {{!-- 可以新增目前沒有的餐廳類型到資料庫，或者選用資料庫現有的餐廳類別 --}}
+      <datalist id="datalistOptions">
+        {{#each rstrtsCategory}}
+        <option value={{this}}>
+          {{!--
+        <option value="義式餐廳">
+        <option value="美式">
+        <option value="酒吧">
+        <option value="日本料理">
+        <option value="咖啡"> --}}
+        {{/each}}
+      </datalist>
+    </div>
+    
+    {{!-- phone --}}
+    <div class="col-md-6">
+      <label for="inputPhone" class="form-label">連絡電話</label>
+      <input type="text" class="form-control" id="inputPhone" pattern="\b0\d{1,2}\s\d{3,4}\s\d{3,4}" maxlength="12" title="請輸入店家聯絡電話" placeholder="0x xxxxxxxx" name="phone" required>
+    </div>
+
+    {{!-- rating --}}
+    <div class="col-md-3 mt-2">
+      <label for="inputRating" class="form-label">Rating</label>
+      <input type="number" class="form-control" id="inputRating" min="1" max="5" step="0.1" placeholder="1.0 to 5.0" name="rating" required>
+    </div>
+
+    <div class="col-md-3 mt-2"></div>
+
+    {{!-- description --}}
+    <div class="col-md-6 mt-2 form-group">
+      <label for="exampleFormControlTextarea1">餐廳介紹</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="豪好吃於盤古開天闢地之初成立，歷經百朝更迭依然頗負盛名，因此具有天下第一豪好吃之美譽..." name="description" required></textarea>
+    </div>
+
+    {{!-- location --}}
+    <div class="col-md-12 mt-2">
+      <label for="inputLocation" class="form-label">Location</label>
+      <input type="text" class="form-control" id="inputLocation" placeholder="110 台北市中正區北平西路 3 號" name="location" required>
+    </div>
+
+    {{!-- image link --}}
+    <div class="col-md-12 mt-2">
+      <label for="inputAddress" class="form-label">Image link</label>
+      <input type="url" class="form-control" id="inputAddress" placeholder="https://" name="image" required>
+    </div>
+    
+    {{!-- google map link --}}
+    <div class="col-md-12 mt-2">
+      <label  for="inputGoogleMapLink" class="form-label">Google map link</label>
+      <input type="url" class="form-control" id="inputGoogleMapLink" placeholder="https://" name="google_map" required>
+    </div>
+
+    {{!-- submit button --}}
+    <div class="col-md-12 my-2">
+      <button type="submit" class="btn btn-primary btn-block">送出餐廳資料</button>
+    </div>
+  </div>
+</form>

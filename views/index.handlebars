@@ -4,7 +4,10 @@
   <div class="search-bar-outer">
     <div class="search-bar-inner">
       <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
+        <h4 class="mb-2">尋找餐廳：
+          {{!-- button for adding new restaurant --}}
+          <a class="btn btn-info" href="./restaurants/new">新增餐廳資料</a>
+        </h4>
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
             value="{{keyword}}" aria-describedby="search-button">
@@ -17,6 +20,7 @@
   </div>
 </div>
 
+
 <!-- restaurant list -->
 <div class="container mt-5">
   <div class="row"></div>
@@ -26,8 +30,7 @@
         {{#each rstrts}}
         <a href="/restaurants/{{this.id}}" class="text-secondary">
           <div class="card mb-0">
-            <img class="card-img-top" src={{this.image}}
-              alt="{{this.name}}">
+            <img class="card-img-top" src={{this.image}} onerror="this.src='https://i.ytimg.com/vi/pCXb4bgoByU/maxresdefault.jpg'">
             <div class="card-body p-3">
               <h6 class="card-title mb-1">{{this.name}}</h6> 
               <div class="restaurant-category mb-1">
@@ -42,9 +45,9 @@
         </a>
 
         <div class="card-footer text-muted text-right pr-0 py-0 mb-3 w-100 d-inline-block">
-          <a href="./restaurants/{{this._id}}/edit" class="mr-2 btn btn-primary btn-sm" style="display: inline;">edit</a>
-          <a href="./restaurants/{{this._id}}/detail" class="mr-2 btn btn-primary btn-sm" style="display: inline;">detail</a>
-          <button type="button" class="btn btn-dark text-white btn-sm" data-toggle="modal" data-target="#deleteConfirmModal">delete</button>
+          <a href="./restaurants/{{this._id}}/edit" class="mr-2 btn btn-primary btn-sm" style="display: inline;">編輯資訊</a>
+          <a href="./restaurants/{{this._id}}/detail" class="mr-2 btn btn-primary btn-sm" style="display: inline;">詳細資訊</a>
+          <button type="button" class="btn btn-dark text-white btn-sm" data-toggle="modal" data-target="#deleteConfirmModal">刪除</button>
         </div>
         {{/each}}        
       </div>
@@ -53,8 +56,6 @@
 </div>
 
 <!-- delete confirmation modal -->
-
-
 <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
