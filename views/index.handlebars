@@ -19,33 +19,60 @@
 
 <!-- restaurant list -->
 <div class="container mt-5">
-  <div class="row">
+  <div class="row"></div>
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
         {{!-- card template  --}}
         {{#each rstrts}}
         <a href="/restaurants/{{this.id}}" class="text-secondary">
-          <div class="card mb-3">
+          <div class="card mb-0">
             <img class="card-img-top" src={{this.image}}
               alt="{{this.name}}">
             <div class="card-body p-3">
-              <h6 class="card-title mb-1">{{this.name}}</h6>
-        
+              <h6 class="card-title mb-1">{{this.name}}</h6> 
               <div class="restaurant-category mb-1">
                 <i class="fas fa-utensils pr-2"></i> {{this.category}}
               </div>
-        
               <span class="badge badge-pill badge-danger font-weight-normal">
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
-        
             </div>
           </div>
         </a>
-        {{/each}}
 
-        
+        <div class="card-footer text-muted text-right pr-0 py-0 mb-3 w-100 d-inline-block">
+          <a href="./restaurants/{{this._id}}/edit" class="mr-2 btn btn-primary btn-sm" style="display: inline;">edit</a>
+          <a href="./restaurants/{{this._id}}/detail" class="mr-2 btn btn-primary btn-sm" style="display: inline;">detail</a>
+          <button type="button" class="btn btn-dark text-white btn-sm" data-toggle="modal" data-target="#deleteConfirmModal">delete</button>
+        </div>
+        {{/each}}        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete confirmation modal -->
+
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Do you really want to delete this restaurant?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        It's going to delete"The restaurant's name".
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <form action="./restaurants/{{this._id}}/delete" method="POST">
+          <button type="submit" class="btn btn-primary">Yes</button>
+        </form>
       </div>
     </div>
   </div>
