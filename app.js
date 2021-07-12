@@ -5,6 +5,7 @@ const port = 3000
 const exphbs = require('express-handlebars')
 const rstrtList = require('./restaurant.json')
 const mongoose = require('mongoose')
+const Restaurant = require('./models/restaurant')
 
 mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true }) // connect to mongoDB
 
@@ -28,7 +29,10 @@ app.use(express.static('public'))
 
 // routes setting
 app.get('/', (req, res) => {
-  res.render('index', {rstrts: rstrtList.results})
+  Restaurant.find() // 取出 restaurant model 裡的所有資料
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(rstrts => res.render('index', {rstrts})) // 將資料傳給 index 樣板
+    .catch(error => console.log(error)) // 錯誤處理
 })
 
 // show specific restaurant details
