@@ -18,7 +18,7 @@
       <input class="form-control" list="datalistOptions" id="inputCategory" pattern="[^\d\s]+" placeholder="餐廳類型" name="category" required>
       {{!-- 可以新增目前沒有的餐廳類型到資料庫，或者選用資料庫現有的餐廳類別 --}}
       <datalist id="datalistOptions">
-        {{#each rstrtsCategory}}
+        {{#each categories}}
         <option value={{this}}>
           {{!--
         <option value="義式餐廳">

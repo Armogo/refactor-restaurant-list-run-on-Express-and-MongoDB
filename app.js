@@ -29,9 +29,24 @@ app.use(express.urlencoded({ extended: true }))
 // static files
 app.use(express.static('public'))
 
+// 取得現有的餐廳類別
+let categories = []
+function getCategory() {
+  return Restaurant.find()
+    .lean()
+    .then(rstrts => {
+      const catg = []
+      for (let i = 0; i < rstrts.length; i++) {
+        catg.push(rstrts[i].category)
+      }
+      categories = Array.from(new Set(catg))
+    })
+    .catch(error => console.log(error))
+}
+
 // route landing page
 app.get('/', (req, res) => {
-  Restaurant.find() // 取出 restaurant model 裡的所有資料
+  return Restaurant.find() // 取出 restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .then(rstrts => res.render('index', {rstrts})) // 將資料傳給 index 樣板
     .catch(error => console.log(error)) // 錯誤處理
@@ -39,18 +54,10 @@ app.get('/', (req, res) => {
 
 // route page for creating new restaurant data
 app.get('/restaurants/new', (req, res) => {
-  Restaurant.find()
+  getCategory()
+  return Restaurant.find()
     .lean()
-    .then(rstrts => {
-      const catg = []
-      for (let i = 0; i < rstrts.length; i++) {
-        catg.push(rstrts[i].category)
-      }
-      // 將現有的餐廳類別傳入new.handlebars，使用者新增餐廳資料時可以選取現有的餐廳類別
-      const rstrtsCategory = Array.from(new Set(catg)) 
-      res.render('new', {rstrtsCategory})
-    })
-    .catch(error => console.log(error))  
+    .then(() => res.render('new', {categories}))
 })
 
 // send new restaurant data to database
@@ -72,9 +79,48 @@ app.post('/restaurants', (req, res) => {
 
 // show specific restaurant details
 app.get('/restaurants/:id', (req, res) => {
-  Restaurant.findById(req.params.id)
+  return Restaurant.findById(req.params.id)
     .lean()
-    .then(rstrt => res.render('show', { rstrt}))
+    .then(rstrt => res.render('show', { rstrt }))
+    .catch(error => console.log(error))    
+})
+
+// route edit page
+app.get('/restaurants/:id/edit', (req, res) => {
+  getCategory()
+  return Restaurant.findById(req.params.id)
+    .lean()
+    .then(rstrt => {
+      res.render('edit', { rstrt, categories })
+    })
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:id/edit', (req, res) => {
+  const name = req.body.name // 從 req.body 拿出表單裡的資料
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image = req.body.image
+  const location = req.body.location
+  const phone = req.body.phone
+  const google_map = req.body.google_map
+  const rating = req.body.rating
+  const description = req.body.description
+
+  return Restaurant.findById(req.params.id)
+    .then(rstrt => {
+      rstrt.name = name
+      rstrt.name_en = name_en
+      rstrt.category = category
+      rstrt.image = image
+      rstrt.location = location
+      rstrt.phone = phone
+      rstrt.google_map = google_map
+      rstrt.rating = rating
+      rstrt.description = description
+      return rstrt.save()
+    })
+    .then(() => res.redirect(`/restaurants/${req.params.id}`)) // 完成新增資料後導回首頁
     .catch(error => console.log(error))
 })
 
