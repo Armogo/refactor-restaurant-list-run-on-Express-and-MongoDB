@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
-const rstrtList = require('./restaurant.json')
 const mongoose = require('mongoose')
 const Restaurant = require('./models/restaurant')
 
@@ -24,13 +23,13 @@ db.once('open', () => {
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 
-// setting body-parser
+// set body-parser
 app.use(express.urlencoded({ extended: true }))
 
 // static files
 app.use(express.static('public'))
 
-// routes setting
+// route landing page
 app.get('/', (req, res) => {
   Restaurant.find() // 取出 restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
@@ -73,8 +72,10 @@ app.post('/restaurants', (req, res) => {
 
 // show specific restaurant details
 app.get('/restaurants/:id', (req, res) => {
-  const rstrt = rstrtList.results.find(rstrt => rstrt.id.toString() === req.params.id)
-  res.render('show', {rstrt: rstrt})
+  Restaurant.findById(req.params.id)
+    .lean()
+    .then(rstrt => res.render('show', { rstrt}))
+    .catch(error => console.log(error))
 })
 
 // search bar
