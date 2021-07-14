@@ -136,11 +136,15 @@ app.post('/restaurants/:id/delete', (req, res) => {
 // search bar
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.replace(/ +/g, "")
-  const rstrts = rstrtList.results.filter(rstrt => {
-    return rstrt.category.toLowerCase().includes(keyword.toLowerCase()) ||
-    rstrt.name.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', {rstrts: rstrts, keyword: keyword})
+  return Restaurant.find()
+    .lean()
+    .then(rstrts => {
+      const searchResult = rstrts.filter(rstrt => {
+        return rstrt.category.toLowerCase().includes(keyword.toLowerCase()) ||
+          rstrt.name.toLowerCase().includes(keyword.toLowerCase())
+      })
+      res.render('index', { rstrts: searchResult, keyword: keyword })
+    })
 })
 
 // start and listen on the Express server
