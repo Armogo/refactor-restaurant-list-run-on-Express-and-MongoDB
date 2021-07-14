@@ -22,4 +22,5 @@ db.once('open', () => {
       description: `${rstrt.description}`
     })
   })
+  console.log('seed data successfully generated.')
 })

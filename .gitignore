@@ -1,2 +1,11 @@
-/node_modules
-/public/img
+public/img
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# npm
+node_modules
+*.log
+*.gz

@@ -1,5 +1,5 @@
 # 專案簡介
-使用restaurant.json檔內8家餐廳資料，運用這些資料做成一個透過Node.js及Express運作的餐廳資訊網頁。
+使用restaurant.json檔內8家餐廳資料作為seed data，設置連接MongoDB資料庫以支援CRUD操作，運用MongoDB內的資料做成一個透過Node.js及Express運作的餐廳資訊網頁。
 
 ## 功能
 1. 首頁上方有search bar讓使用者輸入關鍵字，快速查找餐廳名稱以及餐廳分類
@@ -17,21 +17,37 @@
   - 描述
   - 圖片  
 
-<img src="./public/img/demo.gif" width="1200"></img>
+4. 使用者可以新增一家餐廳
+
+5. 使用者可以瀏覽全部所有餐廳
+
+6. 使用者可以編輯一家餐廳的資訊
+
+7. 使用者可以刪除一家餐廳
+
+<img src="./public/img/demo.gif" width="1000"></img>
 
 ## 安裝
-1. 開啟終端機(Terminal)cd 到存放專案本機位置並執行:
+1. 開啟終端機(Terminal)cd 到存放專案的本機位置並執行:
 ```
-git clone https://github.com/Armogo/restaunrant-list-run-on-Express.git
+git clone https://github.com/Armogo/restaurant-list-run-on-Express-and-MongoDB.git
 ```
 
 2. 初始設定
 
 ```
-cd restaurant-list-run-on-Express-main  //切至專案資料夾
+cd restaurant-list-run-on-Express-and-MongoDB-main  //切至專案資料夾
 
 npm install  //安裝套件
 ```
+
+3. 安裝MongoDB Community Server 4.2.X 版本 https://www.mongodb.com/try/download/community
+
+4. 確認 MongoDB 伺服器已啟動
+
+5. 下載 Roto 3T(搭配 MongoDB 的圖形介面。) https://robomongo.org/
+
+6. 開啟Roto 3T ->Connect to localhost -> Create Database -> Database Name: **restaurant**
 
 ## 執行程式
 1. 開啟程式
@@ -39,9 +55,16 @@ npm install  //安裝套件
 ```
 npm run dev  //執行程式
 ```
-終端機顯示 `Express is listening on localhost:3000` 即成功啟動，請至 http://localhost:3000 體驗程式。
+終端機顯示"`Express is listening on localhost:3000`"及"`mongodb connected!`"即成功啟動，請至 http://localhost:3000 體驗程式。
 
-2. 終止執行
+
+2. 產生種子資料
+```
+npm run seed // 執行restaurantSeeder.js 產生seed data並儲存於MongoDB
+```
+終端機顯示"`seed data successfully generated.`"即成功將seed data儲存於MongoDB的restaurant資料庫。
+
+3. 終止執行
 
 在終端機畫面按2次 `Ctrl+C` 終止server運作。
 
@@ -49,4 +72,8 @@ npm run dev  //執行程式
 - Visual Studio Code - 開發環境
 - Express 4.17.1 - 應用程式架構
 - Express-Handlebars 5.3.2 - 模板引擎
+- Express-body-parser - read HTTP POST data
 - nodemon - 實時偵測檔案更動部分且自動重新執行應用程式
+- MongoDB - data base
+- Roto 3T - 搭配 MongoDB 的圖形介面
+- mongoose 5.13.2 - 操作MongoDB資料庫
