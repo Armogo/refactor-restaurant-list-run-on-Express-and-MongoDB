@@ -36,11 +36,37 @@
       </p>
 
       <img class="rounded mx-auto d-block mb-4 w-100"
-        src={{rstrt.image}} alt="{{rstrt.name}}"
+        src={{rstrt.image}} alt="{{rstrt.name}}" onerror="this.src='https://i.ytimg.com/vi/pCXb4bgoByU/maxresdefault.jpg'"
         style="max-width: 600px;">
-      <nav class="d-flex justify-content-center my-2">
-        <a href="/restaurants/{{rstrt._id}}/edit" class="btn btn-primary btn-lg">編輯資訊</a>
+      <nav class="d-flex my-2">
+        <a href="/restaurants/{{rstrt._id}}/edit" class="btn btn-primary btn-lg mx-auto">編輯資訊</a>
+        <button type="button" class="btn btn-dark text-white btn-lg mx-auto" data-toggle="modal"
+          data-target="#deleteConfirmModal-{{rstrt._id}}">刪除</button>
       </nav>
+    </div>
+  </div>
+</div>
+
+<!-- delete confirmation modal -->
+<div class="modal fade" id="deleteConfirmModal-{{rstrt._id}}" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">確定要刪除這間餐廳嗎?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        即將刪除 {{rstrt.name}}。
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">心中仍然不捨🤤</button>
+        <form action="/restaurants/{{rstrt._id}}/delete" method="POST">
+          <button type="submit" class="btn border border-dark">刪了它</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

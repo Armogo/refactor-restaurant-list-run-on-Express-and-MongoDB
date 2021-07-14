@@ -85,7 +85,7 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.log(error))    
 })
 
-// route edit page
+// route page for editing restaurant data
 app.get('/restaurants/:id/edit', (req, res) => {
   getCategory()
   return Restaurant.findById(req.params.id)
@@ -96,6 +96,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// send edited restaurant data to database
 app.post('/restaurants/:id/edit', (req, res) => {
   const name = req.body.name // 從 req.body 拿出表單裡的資料
   const name_en = req.body.name_en
@@ -121,6 +122,14 @@ app.post('/restaurants/:id/edit', (req, res) => {
       return rstrt.save()
     })
     .then(() => res.redirect(`/restaurants/${req.params.id}`)) // 完成新增資料後導回首頁
+    .catch(error => console.log(error))
+})
+
+// delete restaurant data from database
+app.post('/restaurants/:id/delete', (req, res) => {
+  return Restaurant.findById(req.params.id)
+    .then(rstrt => rstrt.remove())
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
