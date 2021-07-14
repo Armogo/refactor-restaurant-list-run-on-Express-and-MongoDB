@@ -22,13 +22,13 @@
 
 <!-- restaurant list -->
 <div class="container mt-5">
-  <div class="row"></div>
+  <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
         {{!-- card template  --}}
         {{#each rstrts}}
         <a href="./restaurants/{{this._id}}" class="text-secondary">
-          <div class="card mb-0">
+          <div class="card mb-2">
             <img class="card-img-top" src={{this.image}} alt="{{this.name}}" onerror="this.src='https://i.ytimg.com/vi/pCXb4bgoByU/maxresdefault.jpg'">
             <div class="card-body p-3">
               <h6 class="card-title mb-1">{{this.name}}</h6> 
@@ -40,14 +40,16 @@
                 <i class="fas fa-star fa-xs"></i>
               </span>
             </div>
+            <div class="card-footer text-muted text-right py-0 pr-0 w-100">
+              <a href="./restaurants/{{this._id}}/edit" class="mr-2 btn btn-primary btn-sm" style="display: inline;">編輯資訊</a>
+              <a href="./restaurants/{{this._id}}" class="mr-2 btn btn-primary btn-sm" style="display: inline;">詳細資訊</a>
+              <button type="button" class="btn btn-dark text-white btn-sm" data-toggle="modal"
+                data-target="#deleteConfirmModal-{{this._id}}">刪除</button>
+            </div>
           </div>
         </a>
 
-        <div class="card-footer text-muted text-right pr-0 py-0 mb-3 w-100">
-          <a href="./restaurants/{{this._id}}/edit" class="mr-2 btn btn-primary btn-sm" style="display: inline;">編輯資訊</a>
-          <a href="./restaurants/{{this._id}}" class="mr-2 btn btn-primary btn-sm" style="display: inline;">詳細資訊</a>
-          <button type="button" class="btn btn-dark text-white btn-sm" data-toggle="modal" data-target="#deleteConfirmModal-{{this._id}}">刪除</button>
-        </div>
+        
         {{/each}}        
       </div>
     </div>
