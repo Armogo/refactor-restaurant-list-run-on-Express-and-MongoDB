@@ -4,6 +4,7 @@ const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override') // 載入 method-override
 const Restaurant = require('./models/restaurant')
 
 mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true }) // connect to mongoDB
@@ -28,6 +29,9 @@ app.use(express.urlencoded({ extended: true }))
 
 // static files
 app.use(express.static('public'))
+
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 
 // route landing page
 app.get('/', (req, res) => {
@@ -93,7 +97,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 })
 
 // send edited restaurant data to database
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const name = req.body.name // 從 req.body 拿出表單裡的資料
   const name_en = req.body.name_en
   const category = req.body.category
@@ -122,7 +126,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // delete restaurant data from database
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   return Restaurant.findById(req.params.id)
     .then(rstrt => rstrt.remove())
     .then(() => res.redirect('/'))
