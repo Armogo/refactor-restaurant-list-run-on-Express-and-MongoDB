@@ -29,21 +29,6 @@ app.use(express.urlencoded({ extended: true }))
 // static files
 app.use(express.static('public'))
 
-// 取得現有的餐廳類別
-let categories = []
-function getCategory() {
-  return Restaurant.find()
-    .lean()
-    .then(rstrts => {
-      const catg = []
-      for (let i = 0; i < rstrts.length; i++) {
-        catg.push(rstrts[i].category)
-      }
-      categories = Array.from(new Set(catg))
-    })
-    .catch(error => console.log(error))
-}
-
 // route landing page
 app.get('/', (req, res) => {
   return Restaurant.find() // 取出 restaurant model 裡的所有資料
@@ -54,10 +39,16 @@ app.get('/', (req, res) => {
 
 // route page for creating new restaurant data
 app.get('/restaurants/new', (req, res) => {
-  getCategory()
   return Restaurant.find()
     .lean()
-    .then(() => res.render('new', {categories}))
+    .then(rstrts => {
+      const catg = []
+      for (let i = 0; i < rstrts.length; i++) {
+        catg.push(rstrts[i].category)
+      }
+      const categories = Array.from(new Set(catg)) // 取得資料庫中現有的餐廳類型
+      res.render('new', {categories})
+    })
 })
 
 // send new restaurant data to database
@@ -87,10 +78,15 @@ app.get('/restaurants/:id', (req, res) => {
 
 // route page for editing restaurant data
 app.get('/restaurants/:id/edit', (req, res) => {
-  getCategory()
-  return Restaurant.findById(req.params.id)
+  return Restaurant.find()
     .lean()
-    .then(rstrt => {
+    .then(rstrts => {
+      const catg = []
+      for (let i = 0; i < rstrts.length; i++) {
+        catg.push(rstrts[i].category)
+      }
+      const categories = Array.from(new Set(catg)) // 取得資料庫中現有的餐廳類型
+      const rstrt = rstrts.find(rs => rs._id.toString() === req.params.id) // 取得指定餐廳的資料以代入表單，供使用者編輯
       res.render('edit', { rstrt, categories })
     })
     .catch(error => console.log(error))
