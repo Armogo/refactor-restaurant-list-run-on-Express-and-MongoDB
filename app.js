@@ -3,22 +3,9 @@ const express = require('express')
 const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
-const mongoose = require('mongoose')
 const methodOverride = require('method-override') // 載入 method-override
 const routes = require('./routes') // 引用路由器
-
-mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true }) // connect to mongoDB
-
-// status of connection
-const db = mongoose.connection
-// error message
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-// connection succeeds
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
+require('./config/mongoose')
 
 // set up template engine
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
