@@ -2,7 +2,7 @@
 使用restaurant.json檔內8家餐廳資料作為seed data，設置連接MongoDB資料庫以支援CRUD操作，運用MongoDB內的資料做成一個透過Node.js及Express運作的餐廳資訊網頁。
 
 ## 功能
-1. 首頁上方有search bar讓使用者輸入關鍵字，快速查找餐廳名稱以及餐廳分類
+1. 首頁上方有search bar讓使用者輸入關鍵字，快速查找餐廳名稱以及餐廳分類，畫面右側有排序顯示按鈕。
 
 2. 使用可者以在首頁看到所有餐廳的簡單資料：
   - 餐廳照片
@@ -73,7 +73,9 @@ npm run seed // 執行restaurantSeeder.js 產生seed data並儲存於MongoDB
 - Express 4.17.1 - 應用程式架構
 - Express-Handlebars 5.3.2 - 模板引擎
 - Express-body-parser - read HTTP POST data
+- Express router - 根據Separation of Concerns(關注點分離)原則，將route設定從app.js抽出，獨立放入routes資料夾管理
 - nodemon - 實時偵測檔案更動部分且自動重新執行應用程式
 - MongoDB - data base
 - Roto 3T - 搭配 MongoDB 的圖形介面
 - mongoose 5.13.2 - 操作MongoDB資料庫
+- method-override 3.0.0 - 使HTTP request動詞可更改為RESTful風格，路由語義化
