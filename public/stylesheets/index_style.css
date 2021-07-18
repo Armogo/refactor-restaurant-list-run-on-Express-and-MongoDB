@@ -20,6 +20,10 @@ header {
   filter: blur(3px);
 }
 
+.search-bar-row {
+  margin: 0 80px 0 95px;
+}
+
 .search-bar .search-bar-outer {
   margin: 0 auto;
   max-width: 680px;
@@ -48,6 +52,11 @@ header {
 .form-control:focus {
   box-shadow: none;
   border-color: #ced4da;
+}
+
+button#sort-btn {
+  background-color: #9b4b4b;
+  color: white;
 }
 
 .card {

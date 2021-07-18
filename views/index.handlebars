@@ -1,27 +1,38 @@
 <!-- search bar -->
 <div class="container search-bar">
-  <div class="search-bar-outer">
-    <div class="search-bar-inner">
-      <form action="/restaurants/search">
-        <h4 class="mb-2">尋找餐廳：
-          {{!-- button for adding new restaurant --}}
-          <a class="btn btn-info" href="./restaurants/new">新增餐廳資料</a>
-        </h4>
-        <div class="input-group">
-          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
-            value="{{keyword}}" aria-describedby="search-button">
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+  <div class="row search-bar-row justify-content-start">
+    <div class="search-bar-outer col-4 rounded-pill">
+      <div class="search-bar-inner">
+        <form action="/restaurants/search">
+          <h4 class="mb-2">尋找餐廳：</h4>
+          <div class="input-group">
+            <div class="input-group-append">
+              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
+              value="{{keyword}}" aria-describedby="search-button">
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
+    </div>
+    <div class="dropdown col-8 pt-3 text-right">
+      <button class="btn dropdown-toggle" type="button" id="sort-btn" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        排序
+      </button>
+      <div class="dropdown-menu" aria-labelledby="sort-button">
+        <a class="dropdown-item" href="/sort-asc">A -> Z</a>
+        <a class="dropdown-item" href="/sort-desc">Z -> A</a>
+        <a class="dropdown-item" href="/sort-category">類別</a>
+        <a class="dropdown-item" href="/sort-location">地區</a>
+      </div>
     </div>
   </div>
 </div>
 
 
 <!-- restaurant list -->
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
@@ -48,8 +59,6 @@
             </div>
           </div>
         </a>
-
-        
         {{/each}}        
       </div>
     </div>
