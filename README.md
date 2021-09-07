@@ -28,7 +28,9 @@
 <img src="./public/img/demo.gif" width="1000"></img>
 
 ## 安裝
-1. 開啟終端機(Terminal)cd 到存放專案的本機位置並執行:
+1. 開啟終端機(Terminal) cd 到欲存放專案的本機位置
+
+2. 執行git指令
 ```
 git clone https://github.com/Armogo/restaurant-list-run-on-Express-and-MongoDB.git
 ```
